@@ -4,103 +4,35 @@
 	<head>
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 		<style>
-			#singer-image > img{
-				height: 200px;
+			.menu li {
+				margin: 2px;
 			}
-			#singer-image {
-				margin: 10px;
-				display: inline-block;
-				padding: 1px;
-				height: 200px;
-				border: 1px solid #333;
+			.menu a {
+				color: grey;
+				padding: 5px;
+				border: 1px solid black;
+				display: block;
 			}
-			#hideme {
-				display: none;
-			}
-			#magic {
-				cursor: pointer;
-			}
-			#hideme {
-				position: absolute;
-				top: 20px;
-				left: 50%;
-				width: 240px;
-				margin-left: -120px;
-
-				border: 1px solid orange;
-				border-radius: 5px;
-				padding: 20px;
-				font-family: Verdana, Arial, Helvetica, sans-serif;
-				text-align: center;
-				text-transform: uppercase;
+			.menu a:hover {
+				border: 1px dashed red;
 			}
 		</style>
 	</head>
 
 	<body>
-		<h1 id="head"><span id="wut"></span>KOR</h1>
-		<div id="magic">I do real Magic!</div>
-		<select id="sel">
-			<option value="1">Mr</option>
-			<option value="2">or</option>
-			<option value="3">kor</option>
-			<option value="4">Mrs</option>
-		</select>
-		<div id="hideme">
-			this is the magic thing
-			somewhere etc etc
-		</div>
+		<h1>jQuery tutorial</h1>
+		<ul class="menu">
+			<li><a href="home.html">home</a></li>
+			<li><a href="image.html">image</a></li>
+			<li><a href="alert.html">alert</a></li>
+			<li><a href="form.html">form</a></li>
+		</ul>
 
-		<select id="lister">
-			<option value="4">Mrs</option>
-		</select>
-		<div>
-			<div id="singer-image"></div>
-		</div>
-		<a href="/image.html"> Next demo </a>
 		<script>
-			$(document).ready(function(){
-				$("#sel").on("change", function(ev) {
-					var selected = $(this).children('option:selected');
-					var text = $("#sel option:selected").text();
-					var title = $('#head').children("#wut");
-					title.text(selected.text())
-				});
-				//$("#hideme").hide();
-
-				$("#magic").on("click", function() {
-					$("#hideme").fadeIn("slow").delay(2000).fadeOut("slow");
+			$(document).ready(function() {
+				$('.menu').children().filter(':odd').css({
+					backgroundColor: '#333'
 				})
-			});
-			$.ajax({
-				url: "text.html",
-				success: function(html){
-					eval(html);
-				}
-			})
-
-			$.getJSON("singers.json", function (json) {
-				$.each(json, function(key, value){
-					var str = "<option value=" + value + "a>" + key + "</option>";
-					$("#lister").append(str);
-				})
-			});
-
-			$('#lister').on('change', function (ev) {
-				var value = $(this).val();
-				if(!value)
-					value = 'http://img06.deviantart.net/f607/i/2014/331/9/1/stripes_by_susancoffey-d87ux6g.jpg';
-
-				$("#singer-image").children("img").hide(400, function(){
-					$(this).remove();
-				})
-
-				$("#singer-image").append('<img src="' + value + '" />').show(400);
-
-				$("#head").fadeOut(400, function() {
-					var selectedText = $("#lister").children(':selected').text();
-					$(this).text(selectedText);
-				}).fadeIn(400);
 			});
 		</script>
 	</body>
